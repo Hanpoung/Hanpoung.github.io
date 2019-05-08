@@ -277,7 +277,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     output<span class="token punctuation">:</span> <span class="token punctuation">{</span>       <span class="token comment" spellcheck="true">//webpack如何向外输出</span>
         path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token comment" spellcheck="true">//定位，输出文件的目标路径</span>
         filename<span class="token punctuation">:</span> <span class="token string">'[name].js'</span> <span class="token comment" spellcheck="true">//文件名[name].js默认，也可自行配置</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">}</span>
 </code></pre>
 <p>HTML打包我们需要安装引入html-webpack-plugin</p>
 <pre class=" language-javascript"><code class="language-javascript">yarn add html<span class="token operator">-</span>webpack<span class="token operator">-</span>plugin <span class="token operator">-</span>D <span class="token comment" spellcheck="true">//在开发环境中安装</span>
@@ -296,13 +296,11 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     <span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"main"</span><span class="token operator">></span>Hello World<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span> src<span class="token operator">=</span><span class="token string">"main.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
-`
 </code></pre>
 <p>live-sever我们的dist目录，启动一个8080端口，我们就可以看到我们的Hello World了。这就是我们上线版的页面。<br><strong>🍉css在webpack中的配置</strong><br>在我们vue-cli里，我们可以使用css去写我们的样式，也可以使用高级stylus，less，sass等预编译器。这里就以less为例，看看webpack怎么将他打包成一个css。</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">.</span>main <span class="token punctuation">{</span>
   color<span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-`
 </code></pre>
 <p>在src目录下新建我们的style.less文件，在配置之前我们需要npm我们的css-loader和sass-loader， sass<br>yarn add css-loader less less-loader style-loader -D</p>
 <p>执行完上述命令我们在packge.json里可以看到我们的配置文件</p>
@@ -339,7 +337,6 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <p>我们在执行我们的npm run build之后并没有我们的css,为什么呢？原来在webpack配置里css in js。意思是在打包是我们的css是打包在我们的js里的，所有我们引入了extract-text-webpack-plugin插件将css从里面剥离出来。不过又一个问题，require的机制？<br>在我们打包过程中，文件的引用require 按照顺序来打包，这就是文件依赖的机制。</p>
 <p>打包好后我们在live-server，发现我们的样式也上去了，并且css部分分离出来了。<br><strong>🍊js在webpack中的配置</strong><br>现在随着es6的普及，越来越多的代码使用es6了，但是很多浏览器并不支持es6,比如async/awiat，const。因此需要我们引用babe来把我们es6的代码编译为es5。在跟目录下新建.babelrc,简单配置下</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span><span class="token string">"presets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"env"</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
-`
 </code></pre>
 <p>安装我们的babel并在webpack.config.js里module/rules下进行配置</p>
 <pre class=" language-javascript"><code class="language-javascript">yarn add babel<span class="token operator">-</span>loader babel<span class="token operator">-</span>core  abel<span class="token operator">-</span>preset<span class="token operator">-</span>env <span class="token operator">-</span>D  <span class="token comment" spellcheck="true">//babel基本的三个文件</span>
@@ -351,7 +348,6 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     <span class="token comment" spellcheck="true">// exclude:[], 不匹配选项（优先级高于test和include）</span>
     use<span class="token punctuation">:</span> <span class="token string">'babel-loader'</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span>
-<span class="token template-string"><span class="token string">``</span></span>`
 </code></pre>
 <p><strong>🥕图片资源在webpack中的配置</strong><br>在src目录下新建一个assets文件，里面放置几张图片。安装file-loader根据文件地址加载文件<br>yarn add file-loader -D 在webpack.config.js里module/rules</p>
 <pre class=" language-javascript"><code class="language-javascript"> <span class="token punctuation">{</span>  
@@ -395,7 +391,6 @@ devServer<span class="token punctuation">:</span> <span class="token punctuation
             <span class="token punctuation">}</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">//服务于webpack-dev-server  内部封装了一个express </span>
-`
 </code></pre>
 <p><strong>寄语</strong><br>webpack里面博大精深，这只是刚入门。要研究其里面真正的东西，并非一朝一夕。tapable、webpack的生命周期等等。如果你想深入的理解webpack，推荐<a href="https://juejin.im/post/5aa3d2056fb9a028c36868aa" target="_blank" rel="noopener">腾讯ivweb团队</a>关于webpack的深入研究。这也是我最近在看的，只有理解更多，你才能飞的更远。夜深了，时间过的很快。楼主也太困了，停笔于此，望多多包涵。附上我github关于webpack4.0配置的学习demo<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FWsmDyj%2Fwebpack" target="_blank" rel="noopener">点这里</a>。</p>
 
